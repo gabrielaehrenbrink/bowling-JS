@@ -10,9 +10,18 @@ class ScoreCard {
         return this.score;
     }
 
+    getBonusScore() {
+        return this.Bonus
+    }
+
     addFrame(firstRoll, secondRoll) {
         if (this.frame < 10) {
             this.frame++;
+
+            if (this.pendingSpareBonus) {
+                this.Bonus += firstRoll;
+                this.pendingSpareBonus = false;
+            }
 
             // Check for a strike
             if (firstRoll === 10) {
@@ -25,7 +34,7 @@ class ScoreCard {
             // Check for a spare
             if (firstRoll + secondRoll === 10) {
                 this.score += 10;
-                // figure out how to add bonus here!
+                this.pendingSpareBonus = true; // Set the flag for a pending spare bonus
                 return "You got a spare!";
             }
 

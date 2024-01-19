@@ -29,6 +29,12 @@ describe('ScoreCard', () => {
         score = new ScoreCard();
         expect(score.addFrame(3, 7)).toEqual("You got a spare!");
         });
+    it('if 10 pins are knocked down after second roll, return spare and add to bonus first roll of next frame', () => {
+        score = new ScoreCard();
+        score.addFrame(3, 7)
+        score.addFrame(3, 3)
+        expect(score.getBonusScore()).toEqual(3);
+        });
     it('if have a strike, play bonus roll and return message with bonus score', () => {
         score = new ScoreCard();
         score.addFrame(10, 0);
