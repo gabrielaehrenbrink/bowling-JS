@@ -7,7 +7,14 @@ class ScoreCard {
     }
 
     getScore() {
-        return this.score;
+        if (this.frame === 10 && this.score === 0) {
+            return "Gutter Game! You may want more practice"
+        } 
+        if (this.frame === 10 && this.score + this.Bonus === 300) {
+            return "Perfect Game! You scored 300!!"
+        } else {
+            return this.score + this.Bonus;
+        }
     }
 
     getBonusScore() {
@@ -27,7 +34,6 @@ class ScoreCard {
             if (firstRoll === 10) {
                 this.score += 10;
                 this.strikeBonusRolls = 2; // Two bonus rolls for a strike
-                this.Bonus = 10; // Bonus is the score of the strike
                 return "You got a strike!";
             }
 
@@ -48,9 +54,9 @@ class ScoreCard {
     }
     playBonusRoll(firstRoll, secondRoll) {
         if (this.strikeBonusRolls > 0) {
-            this.Bonus = firstRoll + secondRoll;
+            this.Bonus += firstRoll + secondRoll;
             this.strikeBonusRolls--;
-            return "Your Bonus score is " + this.Bonus;
+            return "Your Bonus score is " + this.getBonusScore();
         }
         else {
             return "You don't have a Bonus Roll, wait for your next frame to play!"

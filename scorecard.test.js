@@ -47,4 +47,27 @@ describe('ScoreCard', () => {
         score.playBonusRoll(3, 2)
         expect(score.playBonusRoll(3, 2)).toEqual("You don't have a Bonus Roll, wait for your next frame to play!");
         });
+    it('checks if bonus points are being added after strike + spare', () => {
+        score = new ScoreCard();
+        score.addFrame(10, 0);
+        score.playBonusRoll(3, 2);
+        score.addFrame(3, 7);
+        score.addFrame(2, 5);
+        expect(score.getBonusScore()).toEqual(7);
+        });
+    it('checks if players final score is zero it is a gutter game', () => {
+        score = new ScoreCard();
+        for (let i = 1; i <= 10; i++) {
+            score.addFrame(0, 0);}
+        expect(score.getScore()).toEqual("Gutter Game! You may want more practice");
+    });
+    it('checks if players only rolls strikes it returns perfect game', () => {
+        const score = new ScoreCard();
+        for (let i = 1; i <= 10; i++) {
+            score.addFrame(10, 0);
+            score.playBonusRoll(10, 0);
+            score.playBonusRoll(10, 0);
+        };
+        expect(score.getScore()).toEqual("Perfect Game! You scored 300!!");
+    });
 });
