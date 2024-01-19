@@ -29,4 +29,16 @@ describe('ScoreCard', () => {
         score = new ScoreCard();
         expect(score.addFrame(3, 7)).toEqual("You got a spare!");
         });
+    it('if have a strike, play bonus roll and return message with bonus score', () => {
+        score = new ScoreCard();
+        score.addFrame(10, 0);
+        expect(score.playBonusRoll(3, 2)).toEqual("Your Bonus score is 5");
+        });
+    it('if have a strike, play 2 bonus roll, if you try a third bonus roll that you do not have bonus rolls', () => {
+        score = new ScoreCard();
+        score.addFrame(10, 0);
+        score.playBonusRoll(3, 2)
+        score.playBonusRoll(3, 2)
+        expect(score.playBonusRoll(3, 2)).toEqual("You don't have a Bonus Roll, wait for your next frame to play!");
+        });
 });

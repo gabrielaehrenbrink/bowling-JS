@@ -11,19 +11,8 @@ class ScoreCard {
     }
 
     addFrame(firstRoll, secondRoll) {
-        if (this.frame < 10, this.strikeBonusRolls == 0) {
+        if (this.frame < 10) {
             this.frame++;
-
-            // Apply bonus for previous strike
-            if (this.strikeBonusRolls > 0) {
-                this.score += firstRoll + secondRoll;
-                this.strikeBonusRolls--;
-
-                // Check if the bonus for the previous strike is fully applied
-                if (this.strikeBonusRolls === 0) {
-                    this.Bonus = 0;
-                }
-            }
 
             // Check for a strike
             if (firstRoll === 10) {
@@ -46,6 +35,16 @@ class ScoreCard {
             return this.frame;
         } else {
             return "Game is finished!";
+        }
+    }
+    playBonusRoll(firstRoll, secondRoll) {
+        if (this.strikeBonusRolls > 0) {
+            this.Bonus = firstRoll + secondRoll;
+            this.strikeBonusRolls--;
+            return "Your Bonus score is " + this.Bonus;
+        }
+        else {
+            return "You don't have a Bonus Roll, wait for your next frame to play!"
         }
     }
 }
